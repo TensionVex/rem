@@ -62,7 +62,6 @@ function scrapeLoc($url) {
 
     $storeLinks = $buttLocPageXpath->query('//td[@class="dotrow"]/a/@href'); //    //td[@class="dotrow"]/a/@href      //a[contains(@href,"view")]/@href
     foreach ($storeLinks as $storeLink) {
-        $buttLoc['0'] = $storeLink->nodeValue;
         array_push($buttLoc, $storeLink->nodeValue);
     }
 //    $buttLoc = "http://www.mystore411.com" . implode($buttLoc);
