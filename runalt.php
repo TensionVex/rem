@@ -84,7 +84,7 @@ function scrapeFoot($url) {
 
 $buttStepOne = scrapeLoc("http://www.mystore411.com/store/list_state/2174/Alabama/Foot-Locker-store-locations");
 
-echo "this is the what of the butt";
+echo "this is the end of the butt";
 //echo implode($buttStepOne);
 //$buttFinale = scrapeStore($buttStepOne);
 //echo "'" . implode("'", $buttFinale) . "'";
