@@ -55,7 +55,7 @@ function scrapeStore($url) {
     return $buttStore;
 }
 
-function scrapeLoc($url) {
+function scrapeLocs($url) {
     $buttLoc = array();
     $buttLocPage = curlGet($url);
     $buttLocPageXpath = returnXPathObject($buttLocPage);
@@ -71,17 +71,19 @@ function scrapeLoc($url) {
 
 function scrapeFoot($url) {
     $buttFoot = array();
+    $buttDomain = parse_url($url, PHP_URL_HOST);
     $buttFootPage = curlGet($url);
     $buttFootPageXpath = returnXPathObject($buttFootPage);
 
     $locationLink = $buttFootPageXpath->query('//a[contains(@href,"store")]/@href');
     if ($locationLink->length > 0) {
-        $buttFoot['link'] = $locationLink->item(0)->nodeValue;
+        $buttFoot['link'] = $buttDomain . $locationLink->item(0)->nodeValue;
+        echo $buttFoot;
     }
     return $buttFoot;
 }
-
-$buttStepOne = scrapeLoc("http://www.mystore411.com/store/list_state/2174/Alabama/Foot-Locker-store-locations");
+$scrapeUrl = "http://www.mystore411.com/store/list_state/2174/Alabama/Foot-Locker-store-locations";
+$buttStepOne = scrapeLocs($scrapeUrl);
 
 echo "this is the end of the butt";
 //echo implode($buttStepOne);
