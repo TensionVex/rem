@@ -87,9 +87,10 @@ $scrapeUrl = "http://www.mystore411.com/store/list_state/2174/Alabama/Foot-Locke
 $buttStepOne = scrapeLocs($scrapeUrl);
 
 foreach ($buttStepOne as $buttSteps) {
+    print_r($buttStepOne);
     $buttFinale = scrapeStore($buttStepOne);
     array_push($buttStepOne, $buttSteps->nodeValue);
-    print_r($buttSteps);
+    print($buttFinale);
     return $buttSteps;
 }
 
