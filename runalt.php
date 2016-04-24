@@ -54,7 +54,7 @@ function scrapeStore($url) {
         $buttStore['zip'] = trim($zip->item(0)->nodeValue);
     }
 //    echo "printing buttStore <br>";
-//    print_r($buttStore);
+    print_r($buttStore);
     return $buttStore;
 }
 
@@ -66,7 +66,8 @@ function scrapeLocs($url) {
 
     $storeLinks = $buttLocPageXpath->query('//td[@class="dotrow"]/a/@href'); //    //td[@class="dotrow"]/a/@href      //a[contains(@href,"view")]/@href
     foreach ($storeLinks as $storeLink) {
-        array_push($buttLoc, "http://" . $buttDomain . $storeLink->nodeValue);
+        scrapeStore("http://" . $buttDomain . $storeLink->nodeValue);
+//        array_push($buttLoc, "http://" . $buttDomain . $storeLink->nodeValue);
     }
 //    echo "printing buttLoc <br>";
 //    print_r($buttLoc);
@@ -77,7 +78,7 @@ function passLocs($locs) {
     foreach ($locs as $loc) {
         $buttFinale = scrapeStore($loc);
 //        echo trim(implode($buttFinale));
-        print_r($buttFinale);
+//        print_r($buttFinale);
         array_push($buttFinale, $loc->nodeValue);
     }
 }
@@ -88,17 +89,28 @@ function scrapeFoot($url) {
     $buttFootPage = curlGet($url);
     $buttFootPageXpath = returnXPathObject($buttFootPage);
 
-    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_")]/@href');
+    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_state/2174/Ala")]/@href');
     foreach ($locationLinks as $locationLink) {
         array_push($buttFoot, "http://" . $buttDomain . $locationLink->nodeValue);
     }
-    print_r($buttFoot);
+//    print_r($buttFoot);
     return $buttFoot;
+}
+
+function passFoot($locs) {
+    foreach ($locs as $loc) {
+        $buttMedio = scrapeLocs($loc);
+//        echo trim(implode($buttFinale));
+//        print_r($buttMedio);
+        array_push($buttMedio, $loc->nodeValue);
+    }
 }
 
 $firstUrl = "http://www.mystore411.com/store/listing/2174/Foot-Locker-store-locations";
 $buttStepZero = scrapeFoot($firstUrl);
-$scrapeUrl = "http://www.mystore411.com/store/list_state/2174/Alabama/Foot-Locker-store-locations";
+//print_r($buttStepZero);
+passFoot($buttStepZero);
+//$scrapeUrl = "http://www.mystore411.com/store/list_state/2174/Alabama/Foot-Locker-store-locations";
 //$buttStepOne = scrapeLocs($scrapeUrl);
 //passLocs($buttStepOne);
 
