@@ -88,17 +88,19 @@ function scrapeFoot($url) {
     $buttFootPage = curlGet($url);
     $buttFootPageXpath = returnXPathObject($buttFootPage);
 
-    $locationLink = $buttFootPageXpath->query('//a[contains(@href,"store")]/@href');
-    if ($locationLink->length > 0) {
-        $buttFoot['link'] = "http://" . $buttDomain . $locationLink->item(0)->nodeValue;
-        echo $buttFoot;
+    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store")]/@href');
+    foreach ($locationLinks as $locationLink) {
+        array_push($buttFoot, "http://" . $buttDomain . $locationLink->nodeValue);
     }
+    print_r($buttFoot);
     return $buttFoot;
 }
 
+$firstUrl = "http://www.mystore411.com/store/listing/2174/Foot-Locker-store-locations";
+$buttStepZero = scrapeFoot($firstUrl);
 $scrapeUrl = "http://www.mystore411.com/store/list_state/2174/Alabama/Foot-Locker-store-locations";
-$buttStepOne = scrapeLocs($scrapeUrl);
-passLocs($buttStepOne);
+//$buttStepOne = scrapeLocs($scrapeUrl);
+//passLocs($buttStepOne);
 
 
 echo nl2br("\n") . "this is the end of the butt";
