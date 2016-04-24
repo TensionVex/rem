@@ -57,12 +57,13 @@ function scrapeStore($url) {
 
 function scrapeLocs($url) {
     $buttLoc = array();
+    $buttDomain = parse_url($url, PHP_URL_HOST);
     $buttLocPage = curlGet($url);
     $buttLocPageXpath = returnXPathObject($buttLocPage);
 
     $storeLinks = $buttLocPageXpath->query('//td[@class="dotrow"]/a/@href'); //    //td[@class="dotrow"]/a/@href      //a[contains(@href,"view")]/@href
     foreach ($storeLinks as $storeLink) {
-        array_push($buttLoc, $storeLink->nodeValue);
+        array_push($buttLoc, "http://" . $buttDomain . $storeLink->nodeValue);
     }
 //    $buttLoc = "http://www.mystore411.com" . implode($buttLoc);
     print_r($buttLoc);
@@ -77,13 +78,20 @@ function scrapeFoot($url) {
 
     $locationLink = $buttFootPageXpath->query('//a[contains(@href,"store")]/@href');
     if ($locationLink->length > 0) {
-        $buttFoot['link'] = $buttDomain . $locationLink->item(0)->nodeValue;
+        $buttFoot['link'] = "http://" . $buttDomain . $locationLink->item(0)->nodeValue;
         echo $buttFoot;
     }
     return $buttFoot;
 }
 $scrapeUrl = "http://www.mystore411.com/store/list_state/2174/Alabama/Foot-Locker-store-locations";
 $buttStepOne = scrapeLocs($scrapeUrl);
+
+foreach ($buttStepOne as $buttSteps) {
+    $buttFinale = scrapeStore($buttStepOne);
+    array_push($buttStepOne, $buttSteps->nodeValue);
+    print_r($buttSteps);
+    return $buttSteps;
+}
 
 echo "this is the end of the butt";
 //echo implode($buttStepOne);
