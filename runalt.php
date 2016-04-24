@@ -35,7 +35,7 @@ function scrapeStore($url) {
 
     $address = $buttStorePageXpath->query('//span[@itemprop="streetAddress"]');
     if ($address->length > 0) {
-        $buttStore['address'] = $address->item(0)->nodeValue;
+        $buttStore['address'] = trim($address->item(0)->nodeValue);
     }
 
     $city = $buttStorePageXpath->query('//span[@itemprop="addressLocality"]');
