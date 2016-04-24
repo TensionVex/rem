@@ -28,7 +28,7 @@ function returnXPathObject($item) {
     return $xmlPageXPath;
 }
 
-function scrapeStore($url) {
+function scrapeStore($url) { // address scraper for pages where the address is visible
     $buttStore = array();
     $buttStorePage = curlGet($url);
     $buttStorePageXpath = returnXPathObject($buttStorePage);
@@ -58,7 +58,7 @@ function scrapeStore($url) {
     return $buttStore;
 }
 
-function scrapeLocs($url) {
+function scrapeLocs($url) { // scrape state pages for individual location URLs
     $buttLoc = array();
     $buttDomain = parse_url($url, PHP_URL_HOST);
     $buttLocPage = curlGet($url);
@@ -74,16 +74,16 @@ function scrapeLocs($url) {
     return $buttLoc;
 }
 
-function passLocs($locs) {
-    foreach ($locs as $loc) {
-        $buttFinale = scrapeStore($loc);
+// function passLocs($locs) { / pass scraped locations to the address scraper
+//    foreach ($locs as $loc) {
+//        $buttFinale = scrapeStore($loc);
 //        echo trim(implode($buttFinale));
 //        print_r($buttFinale);
-        array_push($buttFinale, $loc->nodeValue);
-    }
-}
+//        array_push($buttFinale, $loc->nodeValue);
+//    }
+//}
 
-function scrapeFoot($url) {
+function scrapeFoot($url) { // scrape the first page for state page URLs
     $buttFoot = array();
     $buttDomain = parse_url($url, PHP_URL_HOST);
     $buttFootPage = curlGet($url);
@@ -97,7 +97,7 @@ function scrapeFoot($url) {
     return $buttFoot;
 }
 
-function passFoot($locs) {
+function passFoot($locs) { // take state results from first scrape and send to get locations
     foreach ($locs as $loc) {
         $buttMedio = scrapeLocs($loc);
 //        echo trim(implode($buttFinale));
