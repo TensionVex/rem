@@ -88,7 +88,7 @@ function scrapeFoot($url) {
     $buttFootPage = curlGet($url);
     $buttFootPageXpath = returnXPathObject($buttFootPage);
 
-    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store")]/@href');
+    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_")]/@href');
     foreach ($locationLinks as $locationLink) {
         array_push($buttFoot, "http://" . $buttDomain . $locationLink->nodeValue);
     }
