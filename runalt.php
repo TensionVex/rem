@@ -65,9 +65,16 @@ function scrapeLocs($url) {
     foreach ($storeLinks as $storeLink) {
         array_push($buttLoc, "http://" . $buttDomain . $storeLink->nodeValue);
     }
-//    $buttLoc = "http://www.mystore411.com" . implode($buttLoc);
     print_r($buttLoc);
     return $buttLoc;
+}
+
+function passLocs($locs) {
+    foreach ($locs as $loc) {
+        $buttFinale = scrapeStore($loc);
+        echo implode($buttFinale);
+        array_push($buttFinale, $loc->nodeValue);
+    }
 }
 
 function scrapeFoot($url) {
@@ -86,10 +93,10 @@ function scrapeFoot($url) {
 
 $scrapeUrl = "http://www.mystore411.com/store/list_state/2174/Alabama/Foot-Locker-store-locations";
 $buttStepOne = scrapeLocs($scrapeUrl);
+passLocs($buttStepOne);
 
 
-
-echo "this is the end of the butt";
+echo nl2br("\n") . "this is the end of the butt";
 //echo implode($buttStepOne);
 //$buttFinale = scrapeStore($buttStepOne);
 //echo "'" . implode("'", $buttFinale) . "'";
