@@ -64,7 +64,7 @@ function scrapeLocs($url) { // scrape state pages for individual location URLs
     $buttLocPage = curlGet($url);
     $buttLocPageXpath = returnXPathObject($buttLocPage);
 
-    $storeLinks = $buttLocPageXpath->query('//td[@class="dotrow"]/a/@href'); //    //td[@class="dotrow"]/a/@href      //a[contains(@href,"view")]/@href
+    $storeLinks = $buttLocPageXpath->query('//a[contains(@href,"store/view")]/@href'); //    //td[@class="dotrow"]/a/@href      //a[contains(@href,"view")]/@href
     foreach ($storeLinks as $storeLink) {
         scrapeStore("http://" . $buttDomain . $storeLink->nodeValue);
 //        array_push($buttLoc, "http://" . $buttDomain . $storeLink->nodeValue);
@@ -89,7 +89,7 @@ function scrapeFoot($url) { // scrape the first page for state page URLs
     $buttFootPage = curlGet($url);
     $buttFootPageXpath = returnXPathObject($buttFootPage);
 
-    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_state/2174/Ala")]/@href');
+    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_/2174/C")]/@href');
     foreach ($locationLinks as $locationLink) {
         array_push($buttFoot, "http://" . $buttDomain . $locationLink->nodeValue);
     }
