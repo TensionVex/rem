@@ -40,18 +40,20 @@ function scrapeStore($url) {
 
     $city = $buttStorePageXpath->query('//span[@itemprop="addressLocality"]');
     if ($city->length > 0) {
-        $buttStore['city'] = $city->item(0)->nodeValue;
+        $buttStore['city'] = trim($city->item(0)->nodeValue);
     }
 
     $state = $buttStorePageXpath->query('//span[@itemprop="addressRegion"]');
     if ($state->length > 0) {
-        $buttStore['state'] = $state->item(0)->nodeValue;
+        $buttStore['state'] = trim($state->item(0)->nodeValue);
     }
 
     $zip = $buttStorePageXpath->query('//span[@itemprop="postalCode"]');
     if ($zip->length > 0) {
-        $buttStore['zip'] = $zip->item(0)->nodeValue;
+        $buttStore['zip'] = trim($zip->item(0)->nodeValue);
     }
+//    echo "printing buttStore <br>";
+//    print_r($buttStore);
     return $buttStore;
 }
 
@@ -65,14 +67,15 @@ function scrapeLocs($url) {
     foreach ($storeLinks as $storeLink) {
         array_push($buttLoc, "http://" . $buttDomain . $storeLink->nodeValue);
     }
-    print_r($buttLoc);
+//    echo "printing buttLoc <br>";
+//    print_r($buttLoc);
     return $buttLoc;
 }
 
 function passLocs($locs) {
     foreach ($locs as $loc) {
         $buttFinale = scrapeStore($loc);
-        echo implode($buttFinale);
+        print_r($buttFinale);
         array_push($buttFinale, $loc->nodeValue);
     }
 }
