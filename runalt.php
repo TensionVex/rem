@@ -89,7 +89,7 @@ function scrapeFoot($url) { // scrape the first page for state page URLs
     $buttFootPage = curlGet($url);
     $buttFootPageXpath = returnXPathObject($buttFootPage);
 
-    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_state/2174/")]/@href');
+    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_state/2174/Alab")]/@href'); // scraping query to get states or cities
     foreach ($locationLinks as $locationLink) {
         array_push($buttFoot, "http://" . $buttDomain . $locationLink->nodeValue);
     }
