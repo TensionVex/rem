@@ -35,7 +35,7 @@ function scrapeStore($url) {
 
     $address = $buttStorePageXpath->query('//span[@itemprop="streetAddress"]');
     if ($address->length > 0) {
-        $buttStore['address'] = trim($address->item(0)->nodeValue);
+        $buttStore['address'] = strip_tags(trim($address->item(0)->nodeValue, "\r\t\n"),"<br>");
     }
 
     $city = $buttStorePageXpath->query('//span[@itemprop="addressLocality"]');
@@ -75,6 +75,7 @@ function scrapeLocs($url) {
 function passLocs($locs) {
     foreach ($locs as $loc) {
         $buttFinale = scrapeStore($loc);
+        echo trim(implode($buttFinale));
         print_r($buttFinale);
         array_push($buttFinale, $loc->nodeValue);
     }
