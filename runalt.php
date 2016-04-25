@@ -90,7 +90,7 @@ function scrapeFoot($url) { // scrape the first page for state page URLs
     $buttFootPageXpath = returnXPathObject($buttFootPage);
 
 //    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_state/2174/Alab")]/@href'); // scraping query to get states
-    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_city")]/@href'); // alternate scraping query to get California cities
+    $locationLinks = $buttFootPageXpath->query('//a[contains(@href,"store/list_city")]/@href'); // alternate scraping query to get major Metro and California cities
     foreach ($locationLinks as $locationLink) {
         array_push($buttFoot, "http://" . $buttDomain . $locationLink->nodeValue);
     }
@@ -107,7 +107,8 @@ function passFoot($locs) { // take state results from first scrape and send to g
     }
 }
 
-$firstUrl = "http://www.mystore411.com/store/listing/2174/Foot-Locker-store-locations";
+$firstUrl = "http://www.mystore411.com/store/list_state/2174/California/Foot-Locker-store-locations"; // California front page
+//$firstUrl = "http://www.mystore411.com/store/listing/2174/Foot-Locker-store-locations"; // All stores front page
 $buttStepZero = scrapeFoot($firstUrl);
 //print_r($buttStepZero);
 passFoot($buttStepZero);
