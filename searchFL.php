@@ -7,7 +7,6 @@ $fh = fopen('stores.txt', 'r');
 while ($line = fgets($fh)) {
     $url = "http://www.footlocker.com/storepickup/locations?action=getLocations&latlng=" . trim($line) . "&sku=65515010&size=12.0&qty=1&requestKey=632t7EF10C13FC96&rnd=14616521311994";
     echo $url;
-    $ch = curl_init($url);
     $options = array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_REFERER => "$url",
@@ -18,6 +17,7 @@ while ($line = fgets($fh)) {
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_URL => $url
             );
+    $ch = curl_init($url);
     curl_setopt_array($ch, $options);
     $buttcurl = curl_exec($ch);
     echo $buttcurl;
