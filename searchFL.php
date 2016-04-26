@@ -21,9 +21,9 @@ while ($line = fgets($fh)) {
             );
     curl_setopt_array($ch, $options);
     $buttcurl = curl_exec($ch);
-    curl_close($ch);
     echo $buttcurl;
     ob_flush();
+    curl_close($ch);
     sleep(5);
 }
 fclose($fh);
