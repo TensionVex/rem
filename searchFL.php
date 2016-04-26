@@ -25,6 +25,7 @@ while ($line = fgets($fh)) {
     curl_close($ch);
     sleep(5);
 }
+
 fclose($fh);
 echo "all done";
 ?>
